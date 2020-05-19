@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -34,14 +36,11 @@ public class GetMethodConcept {
 		String statusLine = response.getStatusLine();
 		System.out.println(statusLine);
 		Assert.assertEquals(statusLine, "HTTP/1.1 200 OK");
-
-		double time = response.getTime();
-		System.out.println(time);
-		if (time < 2000) {
-			System.out.println("Response is in-time");
-		} else {
-			System.out.println("Response is out of time");
+		
+		Headers allheaders = response.headers();
+		
+		for(Header header: allheaders) {
+			System.out.println(header.getName() + "  :   " + header.getValue());
 		}
-
 	}
 }
