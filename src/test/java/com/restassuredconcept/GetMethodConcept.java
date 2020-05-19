@@ -13,17 +13,25 @@ public class GetMethodConcept {
 
 	@Test
 	void TC_1() {
+		//Base URL
 		RestAssured.baseURI = "https://reqres.in/api/users?page=2";
+		
+		//HTTP Request
 		RequestSpecification httprequest = RestAssured.given();
+		
+		//Response
 		Response response = httprequest.request(Method.GET, "");
-
+		
+                //Status Code Verification  
 		int statusCode = response.getStatusCode();
 		System.out.println(statusCode);
 		Assert.assertEquals(statusCode, 200);
 
+		//Body of the response
 		String body = response.getBody().asString();
 		System.out.println(body);
 
+		//Status Line Verification
 		String statusLine = response.getStatusLine();
 		System.out.println(statusLine);
 		Assert.assertEquals(statusLine, "HTTP/1.1 200 OK");
